@@ -8,6 +8,7 @@ def define_filepaths():
     filepaths["http_params"] = root_path + "/http_params.json"
     filepaths["member_data"] = root_path + "/member_data.json"
     filepaths["response"] = root_path + "/response.json"
+    filepaths["logfile"] = root_path + "/logfile.md"
     return filepaths
 
 
