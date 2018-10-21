@@ -7,8 +7,8 @@ from write_appdata import log_reports
 
 
 def bot_main():
-    model_objects = bot_start()
     while True:
+        model_objects = bot_start()
         print("EVENT: Handling requests...")
         reports = request_handler(model_objects.get("request_params"))
         if reports != None:

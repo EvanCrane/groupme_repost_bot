@@ -23,9 +23,8 @@ def add_reports(reports, member_data):
             member_reports = member_match[0].get('reports')
             report_exists = [r for r in member_reports if report.message_id == r['message_id']]
             if len(report_exists) == 0:
-                existing_reports = member_match[0].get('reports')
                 report_objects = []
-                for item in existing_reports:
+                for item in member_reports:
                     rep = Report(member_match[0].get('user_id'), item.get('report_nickname'), item.get('message_id'), item.get('reported_by'))
                     report_objects.append(rep)
                 report_objects.append(report)
