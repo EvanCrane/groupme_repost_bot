@@ -28,8 +28,9 @@ def get_json_data(path):
 def bind_data_to_objects(appdata):
     objects = {}
     request_params = (appdata.get("http_params"))["request_params"]
+    since_id = (appdata.get("handler_params"))["since_id"]
     request_params_obj = RequestParams(
-        request_params.get("token"), request_params.get("group_id"))
+        request_params.get("token"), request_params.get("group_id"), since_id)
     member_data = appdata.get("member_data")
     members = []
     for item in member_data:
