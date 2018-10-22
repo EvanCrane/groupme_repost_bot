@@ -6,7 +6,7 @@ def define_filepaths():
     filepaths = {}
     root_path = os.path.dirname("AppData/")
     filepaths["http_params"] = root_path + "/http_params.json"
-    filepaths["handler_params"] = root_path + "/http_params.json"
+    filepaths["handler_params"] = root_path + "/handler_params.json"
     filepaths["member_data"] = root_path + "/member_data.json"
     filepaths["response"] = root_path + "/response.json"
     filepaths["logfile"] = root_path + "/logfile.md"

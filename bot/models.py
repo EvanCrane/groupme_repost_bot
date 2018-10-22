@@ -2,10 +2,10 @@
 
 
 class RequestParams(object):
-    def __init__(self, token, group_id):
+    def __init__(self, token, group_id, since_id):
         self.token = token
         self.group_id = group_id
-
+        self.since_id = since_id
 
 class Member(object):
     def __init__(self, user_id, nickname, reports):
