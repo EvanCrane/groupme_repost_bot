@@ -14,7 +14,10 @@ def log_reports(since_id, reports, member_data, is_new_messages):
         member_dict = objects_to_dict(member_list)
         if len(member_dict) > 0:
             is_report_written = write_to_member_json(filepaths, member_dict)
-            is_handler_written = write_to_handler_json(filepaths, since_id)
+        else:
+            print("Reports already exist and will not be written to json...") 
+        write_to_handler_json(filepaths, since_id)
+        
     elif is_new_messages:
         write_to_handler_json(filepaths, since_id)
     return write_to_logfile(filepaths, since_id, reports,
@@ -126,6 +129,7 @@ def write_to_logfile(filepaths, since_id, reports, is_report_written, is_new_mes
     # Outcome4
     else:
         logbody = "No new messages"
+        logfooter = ""
 
     logmessage = logheader + '\n' + logbody + '\n' + logfooter + '\n'
     with open(filepaths.get("logfile"), 'a') as f:
@@ -139,8 +143,8 @@ def write_error_to_logfile(error):
     border = "*****************************************************"
     logheader = "LOG EVENT | TIME: " + str(now)
     logbody = "ERROR | EXCEPTION THROWN"
-    errormessage = str(error[0]) + '\n' + str(error[1]
-                                              ) + '\n' + str(error[2].tb_frame)
+    errormessage = str(error[0]) + '\n' + \
+        str(error[1]) + " Line: " + str(error[2])
     logmessage = '\n' + border + '\n' + logheader + '\n' + \
         logbody + '\n' + errormessage + '\n' + border + '\n'
     with open(filepaths.get("logfile"), 'a') as f:

@@ -21,7 +21,7 @@ def bot_main():
             elif len(reports) == 1:
                 log_reports(reports[0], None, None, True)
         # No new messages
-        elif isinstance(reports, bool):
+        elif isinstance(reports, str):
             log_reports(reports, None, None, False)
         # Error thrown
         else:
