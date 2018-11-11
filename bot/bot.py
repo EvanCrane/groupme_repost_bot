@@ -28,7 +28,7 @@ def bot_main():
             print("BOT LOOP ENDED BY ERROR...")
             return write_error_to_logfile(reports)
         print("EVENT: Main Loop Finished...\n")
-        time.sleep(15)
+        time.sleep(60)
     print("BOT LOOP ENDED BY ERROR...")
 
 
