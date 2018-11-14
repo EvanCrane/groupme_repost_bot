@@ -13,9 +13,17 @@ def read_appdata():
     appdata["http_params"] = get_json_data(filepaths.get("http_params"))
     appdata["handler_params"] = get_json_data(filepaths.get("handler_params"))
     appdata["member_data"] = get_json_data(filepaths.get("member_data"))
-    #appdata["response"] = get_response(filepaths.get("response"))
+    appdata["response"] = get_json_data(filepaths.get("response"))
     objects = bind_data_to_objects(appdata)
     return objects
+
+
+def read_member_data():
+    appdata = {}
+    filepaths = define_filepaths()
+    appdata["member_data"] = get_json_data(filepaths.get("member_data"))
+    member_data = bind_member_to_object(appdata)
+    return member_data
 
 
 def get_json_data(path):
@@ -25,12 +33,8 @@ def get_json_data(path):
     return json_data
 
 
-def bind_data_to_objects(appdata):
-    objects = {}
-    request_params = (appdata.get("http_params"))["request_params"]
-    since_id = (appdata.get("handler_params"))["since_id"]
-    request_params_obj = RequestParams(
-        request_params.get("token"), request_params.get("group_id"), since_id)
+def bind_member_to_object(appdata):
+    object = {}
     member_data = appdata.get("member_data")
     members = []
     for item in member_data:
@@ -41,6 +45,26 @@ def bind_data_to_objects(appdata):
             reports.append(report)
         member = Member(item.get("user_id"), item.get("nickname"), reports)
         members.append(member)
+    object["member_data"] = member_data
+    return object
+
+
+def bind_data_to_objects(appdata):
+    objects = {}
+    request_params = (appdata.get("http_params"))["request_params"]
+    since_id = (appdata.get("handler_params"))["since_id"]
+    request_params_obj = RequestParams(
+        request_params["token"], request_params["group_id"], since_id, request_params["bot_id"])
+    member_data = appdata.get("member_data")
+    members = []
+    for item in member_data:
+        reports = []
+        for rep in item["reports"]:
+            report = Report(item["user_id"], rep["report_nickname"], rep["message_id"], rep["reported_by"])
+            reports.append(report)
+        member = Member(item["user_id"], item["nickname"], reports)
+        members.append(member)
     objects["request_params"] = request_params_obj
     objects["member_data"] = member_data
+    objects["response_data"] = appdata["response"]
     return objects
